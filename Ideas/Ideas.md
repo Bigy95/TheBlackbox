@@ -1,12 +1,13 @@
 Idées, règles et définitions
 ============================
 #Idées
-reprendre une grille sur le net
-Score : périmetre de la grille-4=points de départ
-        points de départ - le nombre de laser utiliser
+- Reprendre une grille sur le net
+- Score : périmetre de la grille-4 = points de départ
+          points de départ - le nombre de laser utilisé
 
-Périmètre carré = 4 * coté
-Périmètre rectangle = (L+l)*2
+- Périmètre carré = 4 * coté
+- Périmètre rectangle = (L+l)*2
+- Selection encadrée des différentes grilles de jeu (couple taille x atomes)
 
 #Règles
 - La génération de la carte sera encadrée par des valeurs min/max;
