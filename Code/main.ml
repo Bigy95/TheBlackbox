@@ -3,6 +3,9 @@
 	exception ListeVide;;
 	exception SuperpositionAtomes;;
 
+(* Initialisation des modules *)
+#load "unix.cma";;
+
 (* Initialisation de Random *)
 	let _ = Random.self_init();;
 
@@ -16,8 +19,12 @@
 
 (* Generation aléatoire d'un couple de valeurs *)
 	let rnd = fun
-		(a, b) -> 	Random.self_init ();
-					((Random.int (b+1-a))+a, (Random.int (b+1-a))+a);;
+		a ->  let x = truncate ((mod_float (Unix.gettimeofday()) 1.) /. 0.000001) in
+			  let y = truncate ((mod_float (Unix.gettimeofday()) 1.) /. 0.000001) in  
+			(x*x + ((y*y)-x)) mod a;;
+
+	let rnd_atom = fun
+		(a, b) -> ((rnd (b+1-a))+a, (rnd (b+1-a))+a);;
 
 (* Placement des atomes *)
 
@@ -58,13 +65,13 @@
 							then raise ListeVide
 						else 
 							try (addAtomRec liste (x, y) 1) with
-								 | SuperpositionAtomes -> print_string("ENTRY");(addAtom liste (rnd (1,y)));;
+								 | SuperpositionAtomes -> print_string("ENTRY");(addAtom liste (rnd_atom (1,y)));;
 
 	let rec genAtoms = fun
 			plateau nbAtoms (x, y) -> if (nbAtoms < 1) then
 							plateau
 						else 
-							let plateau2 = addAtom plateau (rnd (1,y)) in
+							let plateau2 = addAtom plateau (rnd_atom (1,y)) in
 							genAtoms plateau2 (nbAtoms-1) (x, y) ;
 						;;
 
