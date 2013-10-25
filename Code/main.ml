@@ -109,6 +109,17 @@
 						print_string((printLigne (List.hd plateau)) ^ affichagePlateauRec plateau)
 					;;
 
+(* Récupération de la valeurs d'une case *)
+
+	let rec getValueRec = fun
+		(x, y) liste j -> if (j = y) then (List.hd liste) else getValueRec (x, y) (List.tl liste) (j+1);;
+
+	let rec recupValueRec = fun
+		(x, y) plateau i -> if (i = x) then getValueRec (x, y) (List.hd plateau) 1 else recupValueRec (x, y) (List.tl plateau) (i+1);;
+
+	let recupValue = fun
+		(x, y) plateau -> if plateau = [] then "" else recupValueRec (x, y) plateau 1;;
+
 (* Génération de la grille complète *)
 
 	let genBlackBox = fun 
@@ -122,3 +133,4 @@
 
 let plateau = genBlackBox (4, 4) 4;;
 let plateau = genAtoms plateau 4 (4,4);;
+showPlateau (genAtoms (genBlackBox (4, 4) 4) 4 (4,4));;
